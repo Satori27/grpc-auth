@@ -1,0 +1,18 @@
+version: "3"
+
+
+dotenv: ['.env', '{{.HOME}}/.env']
+
+tasks:
+  migrate-up:
+    desc: "Make migrates"
+    cmds:
+      - goose -dir migrations postgres "postgres://$DB_USERNAME:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" up
+  migrate-down:
+    desc: "Down migrates"
+    cmds:
+      - goose -dir migrations postgres "postgres://$DB_USERNAME:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" down
+  test-up:
+    desc: "add app test"
+    cmds:
+      - goose -dir tests/migrations postgres "postgres://$DB_USERNAME:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME" up
